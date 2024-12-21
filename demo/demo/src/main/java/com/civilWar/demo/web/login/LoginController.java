@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @GetMapping("")
-    public String login(){
+    public String loginPage(){
 
         return "html/login/login";
     }
 
 //    @PutMapping("")
-//    public String loginPost(){
+//    public String loginP(){
 //
 //    }
 }

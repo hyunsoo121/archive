@@ -1,5 +1,6 @@
 package com.civilWar.demo.domain.signup;
 
+import com.civilWar.demo.domain.dto.SignupDto;
 import com.civilWar.demo.domain.entity.User;
 import com.civilWar.demo.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Service;
 public class SignupServiceImpl implements SignupService{
     private final UserRepository userRepository;
     @Override
-    public void register(User user) {
+    public void register(SignupDto signupDto) {
+        User user = createUser(signupDto.getEmail(), signupDto.getName(), signupDto.getPassword());
         userRepository.save(user);
     }
 
