@@ -22,11 +22,13 @@ public class LoginController {
         return "html/login/login";
     }
 
-    @PostMapping("")
+    @PostMapping("/process")
     public String login(LoginDto loginDto){
 
-        loginService.login(loginDto);
+        System.out.println("Email: " + loginDto.getEmail());
+        System.out.println("Password: " + loginDto.getPassword());
 
+        loginService.login(loginDto);
         return "redirect:/";
     }
 }

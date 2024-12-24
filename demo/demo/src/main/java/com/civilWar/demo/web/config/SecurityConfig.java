@@ -19,16 +19,24 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http    .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
+//                .formLogin((formLogin) ->
+//                        formLogin
+//                                .loginPage("/login")
+//                                .loginProcessingUrl("/login/process")
+//                                .defaultSuccessUrl("/")
+//                                .failureUrl("/login?error=true")
+//                                .permitAll()
+//                        )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/signup", "/", "/login").permitAll()
+                        .requestMatchers("/signup", "/", "/login/**").permitAll()
                         .anyRequest().authenticated())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true))
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 );
         return http.build();
     }
