@@ -18,7 +18,9 @@ public class HomeController {
     @GetMapping("")
     public String home(Model model, HttpSession httpSession){
 
-        Object username = httpSession.getAttribute("username");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.toString();
+        System.out.println(username);
 
         model.addAttribute("username", username);
 
