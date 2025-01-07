@@ -1,5 +1,8 @@
 package com.civilWar.demo.web.home;
 
+import com.civilWar.demo.domain.entity.User;
+import com.civilWar.demo.domain.user.UserRepository;
+import com.civilWar.demo.domain.user.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -15,14 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
+    private final UserServiceImpl userService;
+
     @GetMapping("")
     public String home(Model model, HttpSession httpSession){
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.toString();
-        System.out.println(username);
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        model.addAttribute("username", username);
+        User user = userService.findByEmail(id);
+
+        model.addAttribute("username", user.getName());
 
         return "html/home/home";
     }
