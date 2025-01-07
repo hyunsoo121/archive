@@ -4,6 +4,7 @@ import com.civilWar.demo.domain.dto.SignupDto;
 import com.civilWar.demo.domain.entity.User;
 import com.civilWar.demo.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SignupServiceImpl implements SignupService{
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public void register(SignupDto signupDto) {
-        User user = createUser(signupDto.getEmail(), signupDto.getName(), passwordEncoder.encode(signupDto.getPassword()));
+        User user = createUser(signupDto.getEmail(), signupDto.getName(), bCryptPasswordEncoder.encode(signupDto.getPassword()));
         userRepository.save(user);
     }
 
@@ -23,7 +25,9 @@ public class SignupServiceImpl implements SignupService{
         User user = User.builder()
                 .name(name)
                 .email(email)
-                .password(password).build();
+                .password(password)
+                .role("ROLE_USER")
+                .build();
 
         userRepository.save(user);
 

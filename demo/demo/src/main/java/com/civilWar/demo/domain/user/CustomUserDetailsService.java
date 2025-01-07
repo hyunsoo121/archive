@@ -1,5 +1,6 @@
 package com.civilWar.demo.domain.user;
 
+import com.civilWar.demo.domain.dto.CustomUserDetails;
 import com.civilWar.demo.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,10 +21,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(), // 암호화된 비밀번호
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
-        );
+        if (user != null) {
+            return new CustomUserDetails(user);
+        }
+
+        return null;
     }
 }
