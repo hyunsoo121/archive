@@ -21,13 +21,17 @@ public class HomeController {
     private final UserServiceImpl userService;
 
     @GetMapping("")
-    public String home(Model model, HttpSession httpSession){
+    public String home(Model model){
 
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userService.findByEmail(id);
 
-        model.addAttribute("username", user.getName());
+        if (user != null){
+            model.addAttribute("username", user.getName());
+        }
+
+
 
         return "html/home/home";
     }
