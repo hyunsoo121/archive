@@ -18,19 +18,27 @@ body {
 
 .header .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* 로고와 버튼 그룹을 양쪽 끝으로 정렬 */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* 로그인/로그아웃 버튼 그룹 */
+.header .button-group {
+    display: flex; /* 버튼을 가로로 나란히 배치 */
+    gap: 0.5rem; /* 버튼 간의 간격 추가 */
+}
+
+/* 로고 스타일 */
 .header .logo {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
 }
 
-.login-btn {
+/* 버튼 스타일 */
+.login-btn, .logout-btn {
     background-color: #007bff;
     color: #ffffff;
     border: none;
@@ -43,6 +51,14 @@ body {
 
 .login-btn:hover {
     background-color: #0056b3;
+}
+
+.logout-btn {
+    background-color: red;
+}
+
+.logout-btn:hover {
+    background-color: darkred;
 }
 
 /* 메인 섹션 스타일 */
